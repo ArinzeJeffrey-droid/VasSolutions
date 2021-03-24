@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Cinema\Http\Controllers\CinemaController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +11,7 @@ use Modules\Cinema\Http\Controllers\CinemaController;
 |
 */
 
-Route::get('/', [CinemaController::class, 'index']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('showtime')->group(function() {
+    Route::get('/', 'ShowtimeController@index');
+    Route::get('/{id}', 'ShowtimeController@show')->name("view_showtime");
+});

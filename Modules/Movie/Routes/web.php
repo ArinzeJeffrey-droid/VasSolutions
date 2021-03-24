@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Modules\Cinema\Http\Controllers\CinemaController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +11,9 @@ use Modules\Cinema\Http\Controllers\CinemaController;
 |
 */
 
-Route::get('/', [CinemaController::class, 'index']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('movie')->group(function() {
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/create/{id}', 'MovieController@create')->name("add_movie");
+        Route::post("/create", 'MovieController@store')->name("save_movie");
+    });
+});
